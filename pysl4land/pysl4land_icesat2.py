@@ -190,7 +190,6 @@ class ICESAT2Tools(object):
         if icesat2_h5_file is None:
             raise Exception("Could not open the input ICESAT2 file.")
 
-        print("Processing Beam: {}".format(icesat2_beam_name))
         icesat2_beam = icesat2_h5_file[icesat2_beam_name]
         icesat2_beam_keys = list(icesat2_beam.keys())
         if 'land_segments' not in icesat2_beam_keys:
