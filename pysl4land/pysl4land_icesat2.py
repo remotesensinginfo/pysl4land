@@ -36,6 +36,7 @@ import h5py
 import numpy
 import pandas
 import geopandas
+import math
 from shapely.geometry import Polygon
 import logging
 
@@ -109,15 +110,15 @@ class ICESAT2Tools(object):
         y_bck[-1] = y[-1]
 
         logger.debug("Calculate the angles.")
+        sgl_flight_angle = math.atan((x[-1] - x[0]) / (y[-1] - y[0]))
         flight_angle = numpy.arctan((x_fwd - x_bck) / (y_fwd - y_bck))
 
-        theta_cos = numpy.zeros_like(flight_angle)
-        theta_sin = numpy.zeros_like(flight_angle)
+        flight_angle_dif = numpy.absolute(flight_angle - sgl_flight_angle)
+        flight_angle[flight_angle_dif > 0.1] = sgl_flight_angle
 
-        theta_cos[flight_angle >= 0] = numpy.cos(flight_angle[flight_angle >= 0])
-        theta_sin[flight_angle >= 0] = numpy.sin(flight_angle[flight_angle >= 0])
-        theta_cos[flight_angle < 0] = numpy.cos(flight_angle[flight_angle < 0] / 2)
-        theta_sin[flight_angle < 0] = numpy.sin(flight_angle[flight_angle < 0] / 2)
+        theta_cos = numpy.cos(flight_angle)
+        theta_sin = numpy.sin(flight_angle)
+
         logger.debug("Calculated the angles.")
 
         along_size_h = along_size / 2.0
