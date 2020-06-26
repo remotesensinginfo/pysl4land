@@ -37,7 +37,7 @@ import setuptools
 import os
 
 setuptools.setup(name='pysl4land',
-    version='0.0.1',
+    version='0.1.0',
     description='Python tools to process spaceborne lidar (GEDI and ICESAT2) for land (pySL4Land) applications.',
     author='Pete Bunting',
     author_email='petebunting@mac.com',

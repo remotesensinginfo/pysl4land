@@ -40,8 +40,8 @@ import logging.config
 import json
 
 PYSL4LAND_VERSION_MAJOR = 0
-PYSL4LAND_VERSION_MINOR = 0
-PYSL4LAND_VERSION_PATCH = 1
+PYSL4LAND_VERSION_MINOR = 1
+PYSL4LAND_VERSION_PATCH = 0
 
 PYSL4LAND_VERSION = str(PYSL4LAND_VERSION_MAJOR) + "."  + str(PYSL4LAND_VERSION_MINOR) + "." + str(PYSL4LAND_VERSION_PATCH)
 PYSL4LAND_VERSION_OBJ = LooseVersion(PYSL4LAND_VERSION)
@@ -78,3 +78,4 @@ if (log_config_path is not None) and os.path.exists(log_config_path):
     logging.config.dictConfig(config)
 else:
     logging.basicConfig(level=log_default_level, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+

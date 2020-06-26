@@ -49,6 +49,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    geditools = pysl4land.pysl4land_gedi.GEDITools()
     valid_only = not args.all
-    geditools.gedi02_b_beams_gpkg(args.input, args.output, valid_only, args.epsg)
+    pysl4land.pysl4land_gedi.gedi02_b_beams_gpkg(args.input, args.output, valid_only, args.epsg)
+

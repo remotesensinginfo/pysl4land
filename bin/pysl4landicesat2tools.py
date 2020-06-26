@@ -51,5 +51,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    icesat2tools = pysl4land.pysl4land_icesat2.ICESAT2Tools()
-    icesat2tools.icesat2_alt08_beams_gpkg(args.input, args.output, args.polys, args.epsg)
+    pysl4land.pysl4land_icesat2.icesat2_alt08_beams_gpkg(args.input, args.output, args.polys, args.epsg)
+
