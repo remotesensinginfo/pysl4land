@@ -1,5 +1,17 @@
 # pysl4land
-Python tools to process spaceborne lidar (GEDI and ICESAT2) for land (pySL4Land) applications 
+Python tools to process spaceborne lidar (GEDI and ICESAT2) for land (pySL4Land) applications. 
+
+## Supported Data Products
+
+It is pretty straight forward to add suport for new data products but at the moment I've just implemented what I need therefore just the following products are supported.
+
+### GEDI
+
+ - GEDI02_b
+
+### ICESAT-2
+
+ - ALT08
 
 ## Install
 To install create a new python environment and install the following:
