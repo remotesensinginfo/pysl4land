@@ -18,6 +18,7 @@ To install create a new python environment and install the following:
  
     pip install geopandas
     pip install h5py
+    pip install scipy
  
 Download pysl4land release, extract and then run:
 
