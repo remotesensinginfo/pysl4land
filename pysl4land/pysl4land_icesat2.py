@@ -45,7 +45,7 @@ import pysl4land.pysl4land_utils
 logger = logging.getLogger(__name__)
 
 
-def get_beam_lst(input_file):
+def get_beam_lst(input_file, strong_only, weak_only):
     """
     A function which returns a list of beam names.
 
@@ -54,13 +54,24 @@ def get_beam_lst(input_file):
 
     """
     icesat2_h5_file = h5py.File(input_file, 'r')
-    icesat2_keys = list(icesat2_h5_file.keys())
-    icesat2_beams = ['gt1l', 'gt1r', 'gt2l', 'gt2r', 'gt3l', 'gt3r']
-    icesat2_beams_lst = []
-    for icesat2_beam_name in icesat2_keys:
-        if icesat2_beam_name in icesat2_beams:
-            icesat2_beams_lst.append(icesat2_beam_name)
-    icesat2_h5_file.close()
+    
+    orientation = icesat2_h5_file['/orbit_info/sc_orient'][0]
+    
+    if strong_only == True:
+        strongOrientDict = {0:'l', 1:'r', 21:'error'}
+        icesat2_beams_lst = ['gt1' + strongOrientDict[orientation], 'gt2' + strongOrientDict[orientation], 'gt3' + strongOrientDict[orientation]]
+    elif weak_only == True:
+        weakOrientDict = {0:'r', 1:'l', 21:'error'}
+        icesat2_beams_lst = ['gt1' + weakOrientDict[orientation], 'gt2' + weakOrientDict[orientation], 'gt3' + weakOrientDict[orientation]]
+    else:
+        icesat2_keys = list(icesat2_h5_file.keys())
+        icesat2_beams = ['gt1l', 'gt1r', 'gt2l', 'gt2r', 'gt3l', 'gt3r']
+        icesat2_beams_lst = []
+        for icesat2_beam_name in icesat2_keys:
+            if icesat2_beam_name in icesat2_beams:
+                icesat2_beams_lst.append(icesat2_beam_name)
+        icesat2_h5_file.close()
+    
     return icesat2_beams_lst
 
 
@@ -317,7 +328,7 @@ def get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys=F
     return icesat2_beam_gdf
 
 
-def icesat2_alt08_beams_gpkg(input_file, out_vec_file, use_seg_polys=False, out_epsg_code=4326):
+def icesat2_alt08_beams_gpkg(input_file, out_vec_file, use_seg_polys=False, out_epsg_code=4326, strong_only=False, weak_only=False):
     """
     A function which converts all the beams to a GPKG vector file with each beam as a different
     layer within the vector file.
@@ -331,11 +342,10 @@ def icesat2_alt08_beams_gpkg(input_file, out_vec_file, use_seg_polys=False, out_
                           default is EPSG:4326
 
     """
-    icesat2_beams = get_beam_lst(input_file)
+    icesat2_beams = get_beam_lst(input_file, strong_only, weak_only)
     for icesat2_beam_name in icesat2_beams:
         logger.info("Processing beam '{}'".format(icesat2_beam_name))
-        icesat2_beam_gdf = get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys,
-                                                              out_epsg_code)
+        icesat2_beam_gdf = get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys, out_epsg_code, strong_only, weak_only)
         icesat2_beam_gdf.to_file(out_vec_file, layer=icesat2_beam_name, driver="GPKG")
         logger.info("Finished processing beam '{}'".format(icesat2_beam_name))
 
