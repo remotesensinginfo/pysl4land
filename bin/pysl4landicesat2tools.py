@@ -48,8 +48,10 @@ if __name__ == "__main__":
                                                                             "should be produced rather than points "
                                                                             "for products which are provided "
                                                                             "in segments.")
-
+    parser.add_argument("--strong_only", action='store_true', default=False, help="Specify that only strong beams are used.")
+    parser.add_argument("--weak_only", action='store_true', default=False, help="Specify that only weak beams are used.")
+    
     args = parser.parse_args()
 
-    pysl4land.pysl4land_icesat2.icesat2_alt08_beams_gpkg(args.input, args.output, args.polys, args.epsg)
+    pysl4land.pysl4land_icesat2.icesat2_alt08_beams_gpkg(args.input, args.output, args.polys, args.epsg,, args.strong_only, args.weak_only)
 
