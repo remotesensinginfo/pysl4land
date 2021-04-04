@@ -53,5 +53,5 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
 
-    pysl4land.pysl4land_icesat2.icesat2_alt08_beams_gpkg(args.input, args.output, args.polys, args.epsg,, args.strong_only, args.weak_only)
+    pysl4land.pysl4land_icesat2.icesat2_alt08_beams_gpkg(args.input, args.output, args.polys, args.epsg, args.strong_only, args.weak_only)
 
