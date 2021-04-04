@@ -35,3 +35,6 @@ For ICESAT-2 data:
 
     pysl4landicesat2tools.py -i input_icesat2.h5 -o output_icesat2.gpkg --polys
 
+For ICESAT-2 WEAK/STRONG BEAMS ONLY:
+    
+    pysl4landicesat2tools.py -i input_icesat2.h5 -o output_icesat2.gpkg --polys --strong_only
