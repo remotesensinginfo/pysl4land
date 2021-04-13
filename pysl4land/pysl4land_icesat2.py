@@ -184,7 +184,7 @@ def get_segment_polygons(latitude, longitude, along_size=100.0, across_size=13.0
     return numpy.asarray(icesat2_polys_wgs84_gdf.geometry.values)
 
 
-def get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys=False, out_epsg_code=4326):
+def get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys=False, out_epsg_code=4326, strong_only=False, weak_only=False):
     """
 
     :param input_file:
@@ -193,9 +193,9 @@ def get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys=F
     :param out_epsg_code:
     :return:
     """
-    icesat2_beams = get_beam_lst(input_file)
+    icesat2_beams = get_beam_lst(input_file, strong_only, weak_only)
     if icesat2_beam_name not in icesat2_beams:
-        raise Exception("Bean '{}' is not available within the file: {}".format(icesat2_beam_name, input_file))
+        raise Exception("Beam '{}' is not available within the file: {}".format(icesat2_beam_name, input_file))
 
     icesat2_h5_file = h5py.File(input_file, 'r')
     if icesat2_h5_file is None:
@@ -343,9 +343,10 @@ def icesat2_alt08_beams_gpkg(input_file, out_vec_file, use_seg_polys=False, out_
 
     """
     icesat2_beams = get_beam_lst(input_file, strong_only, weak_only)
+    print(icesat2_beams)
     for icesat2_beam_name in icesat2_beams:
         logger.info("Processing beam '{}'".format(icesat2_beam_name))
-        icesat2_beam_gdf = get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys, out_epsg_code, strong_only, weak_only)
+        icesat2_beam_gdf = get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys, out_epsg_code)
         icesat2_beam_gdf.to_file(out_vec_file, layer=icesat2_beam_name, driver="GPKG")
         logger.info("Finished processing beam '{}'".format(icesat2_beam_name))
 
