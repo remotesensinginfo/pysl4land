@@ -39,6 +39,7 @@ import geopandas
 import math
 from shapely.geometry import Polygon
 import logging
+from datetime import datetime, timedelta
 
 import pysl4land.pysl4land_utils
 
@@ -200,7 +201,8 @@ def get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys=F
     icesat2_h5_file = h5py.File(input_file, 'r')
     if icesat2_h5_file is None:
         raise Exception("Could not open the input ICESAT2 file.")
-
+    
+    
     icesat2_beam = icesat2_h5_file[icesat2_beam_name]
     icesat2_beam_keys = list(icesat2_beam.keys())
     if 'land_segments' not in icesat2_beam_keys:
@@ -218,7 +220,14 @@ def get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys=F
     if 'terrain' not in icesat2_land_beam_keys:
         raise Exception("Could not find terrain information.")
     icesat2_beam_terrain = icesat2_land_beam['terrain']
-
+    
+    icesat2_atlas_sdp_gps_epoch = icesat2_h5_file['ancillary_data']['atlas_sdp_gps_epoch'][0]
+    
+    gps_epoch_delta_time = icesat2_land_beam['delta_time'] + icesat2_atlas_sdp_gps_epoch
+    utc_delta_time = [datetime(1980, 1, 6) + timedelta(seconds=x - (37 - 19)) for x in gps_epoch_delta_time]
+    utc_time = [x.strftime("%Y.%m.%d_%H.%M.%S") for x in utc_delta_time]
+    
+    
     icesat2_beam_df = pandas.DataFrame({
         'asr'                      : icesat2_land_beam['asr'],
         'atlas_pa'                 : icesat2_land_beam['atlas_pa'],
@@ -226,6 +235,7 @@ def get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys=F
         'beam_coelev'              : icesat2_land_beam['beam_coelev'],
         'brightness_flag'          : icesat2_land_beam['brightness_flag'],
         'delta_time'               : icesat2_land_beam['delta_time'],
+        'segment_time_utc_ymd_hms' : utc_time,
         'delta_time_beg'           : icesat2_land_beam['delta_time_beg'],
         'delta_time_end'           : icesat2_land_beam['delta_time_end'],
         'dem_flag'                 : icesat2_land_beam['dem_flag'],
@@ -311,6 +321,9 @@ def get_icesat2_alt08_beam_as_gdf(input_file, icesat2_beam_name, use_seg_polys=F
         'n_te_photons'             : icesat2_beam_terrain['n_te_photons'],
         'terrain_slope'            : icesat2_beam_terrain['terrain_slope']
     })
+    
+    
+    
     if use_seg_polys:
         latitude_arr = numpy.array(icesat2_land_beam['latitude'])
         longitude_arr = numpy.array(icesat2_land_beam['longitude'])
