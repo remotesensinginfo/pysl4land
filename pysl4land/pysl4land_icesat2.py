@@ -59,11 +59,25 @@ def get_beam_lst(input_file, strong_only, weak_only):
     orientation = icesat2_h5_file['/orbit_info/sc_orient'][0]
     
     if strong_only == True:
+        icesat2_keys = list(icesat2_h5_file.keys())
         strongOrientDict = {0:'l', 1:'r', 21:'error'}
-        icesat2_beams_lst = ['gt1' + strongOrientDict[orientation], 'gt2' + strongOrientDict[orientation], 'gt3' + strongOrientDict[orientation]]
+        icesat2_beams = ['gt1' + strongOrientDict[orientation], 'gt2' + strongOrientDict[orientation], 'gt3' + strongOrientDict[orientation]]
+        icesat2_beams_lst = []
+        for icesat2_beam_name in icesat2_keys:
+            if icesat2_beam_name in icesat2_beams:
+                icesat2_beams_lst.append(icesat2_beam_name)
+        icesat2_h5_file.close()
+        
     elif weak_only == True:
+        icesat2_keys = list(icesat2_h5_file.keys())
         weakOrientDict = {0:'r', 1:'l', 21:'error'}
-        icesat2_beams_lst = ['gt1' + weakOrientDict[orientation], 'gt2' + weakOrientDict[orientation], 'gt3' + weakOrientDict[orientation]]
+        icesat2_beams = ['gt1' + weakOrientDict[orientation], 'gt2' + weakOrientDict[orientation], 'gt3' + weakOrientDict[orientation]]
+        icesat2_beams_lst = []
+        for icesat2_beam_name in icesat2_keys:
+            if icesat2_beam_name in icesat2_beams:
+                icesat2_beams_lst.append(icesat2_beam_name)
+        icesat2_h5_file.close()
+        
     else:
         icesat2_keys = list(icesat2_h5_file.keys())
         icesat2_beams = ['gt1l', 'gt1r', 'gt2l', 'gt2r', 'gt3l', 'gt3r']
