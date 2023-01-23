@@ -36,6 +36,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def latlon_to_utm_zone_number(latitude, longitude):
     """
     Find the UTM zone number for a give latitude and longitude. UTM zone will be returned for all the
@@ -49,16 +50,28 @@ def latlon_to_utm_zone_number(latitude, longitude):
 
     """
     import numpy
-    utm_zones = (((longitude + 180) / 6) + 1)
+
+    utm_zones = ((longitude + 180) / 6) + 1
     utm_zones = numpy.rint(utm_zones).astype(int)
 
-    utm_zones[(56 <= latitude) & (latitude < 64) & (3 <= longitude) & (longitude < 12)] = 32
-    utm_zones[(72 <= latitude) & (latitude <= 84) & (longitude >= 0) & (longitude < 9)] = 31
-    utm_zones[(72 <= latitude) & (latitude <= 84) & (longitude >= 0) & (longitude < 21)] = 33
-    utm_zones[(72 <= latitude) & (latitude <= 84) & (longitude >= 0) & (longitude < 33)] = 35
-    utm_zones[(72 <= latitude) & (latitude <= 84) & (longitude >= 0) & (longitude < 42)] = 37
+    utm_zones[
+        (56 <= latitude) & (latitude < 64) & (3 <= longitude) & (longitude < 12)
+    ] = 32
+    utm_zones[
+        (72 <= latitude) & (latitude <= 84) & (longitude >= 0) & (longitude < 9)
+    ] = 31
+    utm_zones[
+        (72 <= latitude) & (latitude <= 84) & (longitude >= 0) & (longitude < 21)
+    ] = 33
+    utm_zones[
+        (72 <= latitude) & (latitude <= 84) & (longitude >= 0) & (longitude < 33)
+    ] = 35
+    utm_zones[
+        (72 <= latitude) & (latitude <= 84) & (longitude >= 0) & (longitude < 42)
+    ] = 37
 
     return utm_zones
+
 
 def latlon_to_mode_utm_zone_number(latitude, longitude):
     """
@@ -70,7 +83,7 @@ def latlon_to_mode_utm_zone_number(latitude, longitude):
 
     """
     import scipy.stats
+
     utm_zones = latlon_to_utm_zone_number(latitude, longitude)
     mode, count = scipy.stats.mode(utm_zones)
     return mode[0]
-

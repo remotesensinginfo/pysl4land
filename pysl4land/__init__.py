@@ -32,18 +32,24 @@ See other source files for details
 # History:
 # Version 1.0 - Created.
 
-from distutils.version import LooseVersion
-import os
-import sys
+import json
 import logging
 import logging.config
-import json
+import os
+import sys
+from distutils.version import LooseVersion
 
 PYSL4LAND_VERSION_MAJOR = 0
 PYSL4LAND_VERSION_MINOR = 1
-PYSL4LAND_VERSION_PATCH = 0
+PYSL4LAND_VERSION_PATCH = 1
 
-PYSL4LAND_VERSION = str(PYSL4LAND_VERSION_MAJOR) + "."  + str(PYSL4LAND_VERSION_MINOR) + "." + str(PYSL4LAND_VERSION_PATCH)
+PYSL4LAND_VERSION = (
+    str(PYSL4LAND_VERSION_MAJOR)
+    + "."
+    + str(PYSL4LAND_VERSION_MINOR)
+    + "."
+    + str(PYSL4LAND_VERSION_PATCH)
+)
 PYSL4LAND_VERSION_OBJ = LooseVersion(PYSL4LAND_VERSION)
 
 py_sys_version = sys.version_info
@@ -55,27 +61,31 @@ PYSL4LAND_COPYRIGHT_NAMES = "Pete Bunting"
 
 PYSL4LAND_SUPPORT_EMAIL = "rsgislib-support@googlegroups.com"
 
-pysl4land_log_level = os.getenv('PYSL4LAND_LOG_LVL', 'INFO')
+pysl4land_log_level = os.getenv("PYSL4LAND_LOG_LVL", "INFO")
 
-log_default_level=logging.INFO
-if pysl4land_log_level.upper() == 'INFO':
+log_default_level = logging.INFO
+if pysl4land_log_level.upper() == "INFO":
     log_default_level = logging.INFO
-elif pysl4land_log_level.upper() == 'DEBUG':
+elif pysl4land_log_level.upper() == "DEBUG":
     log_default_level = logging.DEBUG
-elif pysl4land_log_level.upper() == 'WARNING':
+elif pysl4land_log_level.upper() == "WARNING":
     log_default_level = logging.WARNING
-elif pysl4land_log_level.upper() == 'ERROR':
+elif pysl4land_log_level.upper() == "ERROR":
     log_default_level = logging.ERROR
-elif pysl4land_log_level.upper() == 'CRITICAL':
+elif pysl4land_log_level.upper() == "CRITICAL":
     log_default_level = logging.CRITICAL
 else:
-    raise Exception("Logging level specified ('{}') is not recognised.".format(pysl4land_log_level))
+    raise Exception(
+        "Logging level specified ('{}') is not recognised.".format(pysl4land_log_level)
+    )
 
-log_config_path = os.getenv('PYSL4LAND_LOG_CFG', None)
+log_config_path = os.getenv("PYSL4LAND_LOG_CFG", None)
 if (log_config_path is not None) and os.path.exists(log_config_path):
-    with open(log_config_path, 'rt') as f:
+    with open(log_config_path, "rt") as f:
         config = json.load(f)
     logging.config.dictConfig(config)
 else:
-    logging.basicConfig(level=log_default_level, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-
+    logging.basicConfig(
+        level=log_default_level,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    )

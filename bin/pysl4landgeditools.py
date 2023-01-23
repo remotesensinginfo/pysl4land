@@ -36,19 +36,33 @@ import logging
 
 import pysl4land.pysl4land_gedi
 
-logger = logging.getLogger('pysl4landgeditools.py')
+logger = logging.getLogger("pysl4landgeditools.py")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input", type=str, required=True, help="Specify an input HDF5 file.")
-    parser.add_argument("-o", "--output", type=str, required=True, help="Specify an output GPKG file.")
-    parser.add_argument("-e", "--epsg", type=int, default=4326, help="Optionally provide an EPSG code for "
-                                                                     "the output vector.")
-    parser.add_argument("--all", action='store_true', default=False, help="Specify that all points should be "
-                                                                          "outputted and no filtering applied.")
+    parser.add_argument(
+        "-i", "--input", type=str, required=True, help="Specify an input HDF5 file."
+    )
+    parser.add_argument(
+        "-o", "--output", type=str, required=True, help="Specify an output GPKG file."
+    )
+    parser.add_argument(
+        "-e",
+        "--epsg",
+        type=int,
+        default=4326,
+        help="Optionally provide an EPSG code for " "the output vector.",
+    )
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        default=False,
+        help="Specify that all points should be " "outputted and no filtering applied.",
+    )
 
     args = parser.parse_args()
 
     valid_only = not args.all
-    pysl4land.pysl4land_gedi.gedi02_b_beams_gpkg(args.input, args.output, valid_only, args.epsg)
-
+    pysl4land.pysl4land_gedi.gedi02_b_beams_gpkg(
+        args.input, args.output, valid_only, args.epsg
+    )

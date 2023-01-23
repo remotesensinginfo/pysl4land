@@ -33,26 +33,26 @@ $ python setup.py install
 # History:
 # Version 1.0 - Created.
 
-#import setuptools
-from distutils.core import setup
-import os
+from setuptools import setup
+import glob
+import pysl4land
 
 setup(name='pysl4land',
-    version='0.1.0',
+    version=pysl4land.PYSL4LAND_VERSION,
     description='Python tools to process spaceborne lidar (GEDI and ICESAT2) for land (pySL4Land) applications.',
     author='Pete Bunting',
     author_email='petebunting@mac.com',
-    scripts=['bin/pysl4landgeditools.py', 'bin/pysl4landicesat2tools.py'],
+    scripts=glob.glob("bin/*.py"),
     include_package_data=True,
     packages=['pysl4land'],
-    package_dir={'pysl4land': 'pysl4land'},
     license='LICENSE.txt',
     install_requires=['h5py', 'numpy', 'scipy', 'geopandas', 'shapely'],
     url='https://github.com/remotesensinginfo/pysl4land',
     classifiers=['Intended Audience :: Developers',
                  'Operating System :: OS Independent',
-                 'Programming Language :: Python :: 3',
-                 'Programming Language :: Python :: 3.5',
-                 'Programming Language :: Python :: 3.6',
-                 'Programming Language :: Python :: 3.7',
-                 'Programming Language :: Python :: 3.8'])
+                 "Programming Language :: Python :: 3",
+                "Programming Language :: Python :: 3.7",
+                "Programming Language :: Python :: 3.8",
+                "Programming Language :: Python :: 3.9",
+                "Programming Language :: Python :: 3.10",
+                "Programming Language :: Python :: 3.11",])

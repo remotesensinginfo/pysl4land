@@ -36,22 +36,47 @@ import logging
 
 import pysl4land.pysl4land_icesat2
 
-logger = logging.getLogger('pysl4landicesat2tools.py')
+logger = logging.getLogger("pysl4landicesat2tools.py")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--input", type=str, required=True, help="Specify an input HDF5 file.")
-    parser.add_argument("-o", "--output", type=str, required=True, help="Specify an output GPKG file.")
-    parser.add_argument("-e", "--epsg", type=int, default=4326, help="Optionally provide an EPSG code for "
-                                                                     "the output vector.")
-    parser.add_argument("--polys", action='store_true', default=False, help="Specify that a polygon output "
-                                                                            "should be produced rather than points "
-                                                                            "for products which are provided "
-                                                                            "in segments.")
-    parser.add_argument("--strong_only", action='store_true', default=False, help="Specify that only strong beams are used.")
-    parser.add_argument("--weak_only", action='store_true', default=False, help="Specify that only weak beams are used.")
-    
+    parser.add_argument(
+        "-i", "--input", type=str, required=True, help="Specify an input HDF5 file."
+    )
+    parser.add_argument(
+        "-o", "--output", type=str, required=True, help="Specify an output GPKG file."
+    )
+    parser.add_argument(
+        "-e",
+        "--epsg",
+        type=int,
+        default=4326,
+        help="Optionally provide an EPSG code for " "the output vector.",
+    )
+    parser.add_argument(
+        "--polys",
+        action="store_true",
+        default=False,
+        help="Specify that a polygon output "
+        "should be produced rather than points "
+        "for products which are provided "
+        "in segments.",
+    )
+    parser.add_argument(
+        "--strong_only",
+        action="store_true",
+        default=False,
+        help="Specify that only strong beams are used.",
+    )
+    parser.add_argument(
+        "--weak_only",
+        action="store_true",
+        default=False,
+        help="Specify that only weak beams are used.",
+    )
+
     args = parser.parse_args()
 
-    pysl4land.pysl4land_icesat2.icesat2_alt08_beams_gpkg(args.input, args.output, args.polys, args.epsg, args.strong_only, args.weak_only)
-
+    pysl4land.pysl4land_icesat2.icesat2_alt08_beams_gpkg(
+        args.input, args.output, args.polys, args.epsg, args.strong_only, args.weak_only
+    )

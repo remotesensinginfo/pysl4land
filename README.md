@@ -22,7 +22,11 @@ To install create a new python environment and install the following:
  
 Download pysl4land release, extract and then run:
 
-    python setup.py install
+    pip install .
+
+if you want to install into another location using the --prefix option:
+
+    pip install . --prefix=/to/install/path
 
 ## Run
 
