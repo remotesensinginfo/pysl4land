@@ -5,7 +5,8 @@ pySL4Land - this file is needed to ensure it can be imported
 See other source files for details
 """
 # This file is part of 'pySL4Land'
-# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land (pySL4Land) applications
+# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land
+# (pySL4Land) applications
 #
 # Copyright 2020 Pete Bunting
 #

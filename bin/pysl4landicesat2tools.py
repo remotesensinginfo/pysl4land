@@ -3,7 +3,8 @@
 pySL4Land - Command line tool to process ICESAT2 data.
 """
 # This file is part of 'pySL4Land'
-# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land (pySL4Land) applications
+# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land
+# (pySL4Land) applications
 #
 # Copyright 2020 Pete Bunting
 #

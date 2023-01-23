@@ -5,7 +5,8 @@ pySL4Land - this file provides a class to process GEDI data.
 See other source files for details
 """
 # This file is part of 'pySL4Land'
-# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land (pySL4Land) applications
+# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land
+# (pySL4Land) applications
 #
 # Copyright 2020 Pete Bunting
 #
@@ -126,15 +127,15 @@ def get_gedi02_b_beam_as_gdf(
     input_file, gedi_beam_name, valid_only=True, out_epsg_code=4326
 ):
     """
-    A function which gets a geopandas dataframe for a beam. Note the parameters with multiple
-    values in the z axis are not included in the dataframe.
+    A function which gets a geopandas dataframe for a beam. Note the parameters
+    with multiple values in the z axis are not included in the dataframe.
 
     :param input_file: input file path.
     :param gedi_beam_name: the name of the beam to be processed.
-    :param valid_only: If True (default) then returns which are labelled as invalid are removed from the
-                       dataframe.
-    :param out_epsg_code: If provided the returns will be reprojected to the EPSG code provided.
-                          default is EPSG:4326
+    :param valid_only: If True (default) then returns which are labelled as invalid
+                       are removed from the dataframe.
+    :param out_epsg_code: If provided the returns will be reprojected to the EPSG
+                          code provided. default is EPSG:4326
 
     """
     gedi_beams = get_beam_lst(input_file)
@@ -239,16 +240,16 @@ def get_gedi02_b_beam_as_gdf(
 
 def gedi02_b_beams_gpkg(input_file, out_vec_file, valid_only=True, out_epsg_code=4326):
     """
-    A function which converts all the beams to a GPKG vector file with each beam as a different
-    layer within the vector file.
+    A function which converts all the beams to a GPKG vector file with each beam
+    as a different layer within the vector file.
 
     :param input_file: input file path.
     :param out_vec_file: output file path
     :param gedi_beam_name: the name of the beam to be processed.
-    :param valid_only: If True (default) then returns which are labelled as invalid are removed from the
-                       dataframe.
-    :param out_epsg_code: If provided the returns will be reprojected to the EPSG code provided.
-                          default is EPSG:4326
+    :param valid_only: If True (default) then returns which are labelled as invalid
+                       are removed from the dataframe.
+    :param out_epsg_code: If provided the returns will be reprojected to the
+                          EPSG code provided. default is EPSG:4326
 
     """
     gedi_beams = get_beam_lst(input_file)

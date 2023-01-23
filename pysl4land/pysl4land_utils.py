@@ -5,7 +5,8 @@ pySL4Land - this file provides a utility classes
 See other source files for details
 """
 # This file is part of 'pySL4Land'
-# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land (pySL4Land) applications
+# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land (
+# pySL4Land) applications
 #
 # Copyright 2020 Pete Bunting
 #
@@ -39,9 +40,10 @@ logger = logging.getLogger(__name__)
 
 def latlon_to_utm_zone_number(latitude, longitude):
     """
-    Find the UTM zone number for a give latitude and longitude. UTM zone will be returned for all the
-    lat/longs within the input arrays, which must be of the same length. Function will also work with
-    a single value, at which point a single int will be returned.
+    Find the UTM zone number for a give latitude and longitude. UTM zone will be
+    returned for all the lat/longs within the input arrays, which must be of the
+    same length. Function will also work with a single value, at which point a
+    single int will be returned.
 
     :param latitude: numpy array of floats
     :param longitude: numpy array of floats
