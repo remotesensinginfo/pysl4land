@@ -5,7 +5,8 @@ pySL4Land - this file provides a class to process ICESAT2 data.
 See other source files for details
 """
 # This file is part of 'pySL4Land'
-# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land (pySL4Land) applications
+# A set of tools to process spaceborne lidar (GEDI and ICESAT2) for land
+# (pySL4Land) applications
 #
 # Copyright 2020 Pete Bunting
 #
@@ -447,16 +448,16 @@ def icesat2_alt08_beams_gpkg(
     weak_only=False,
 ):
     """
-    A function which converts all the beams to a GPKG vector file with each beam as a different
-    layer within the vector file.
+    A function which converts all the beams to a GPKG vector file with each beam as
+    a different layer within the vector file.
 
     :param input_file: input file path.
     :param out_vec_file: output file path
     :param gedi_beam_name: the name of the beam to be processed.
-    :param valid_only: If True (default) then returns which are labelled as invalid are removed from the
-                       dataframe.
-    :param out_epsg_code: If provided the returns will be reprojected to the EPSG code provided.
-                          default is EPSG:4326
+    :param valid_only: If True (default) then returns which are labelled as invalid
+                       are removed from the dataframe.
+    :param out_epsg_code: If provided the returns will be reprojected to the EPSG
+                          code provided. default is EPSG:4326
 
     """
     icesat2_beams = get_beam_lst(input_file, strong_only, weak_only)
